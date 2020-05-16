@@ -101,16 +101,18 @@
 <pre class="r"><code>library(reticulate)
 Sys.setenv(RETICULATE_PYTHON = &quot;/usr/bin/python&quot;)
 use_python(&quot;/usr/bin/python&quot;)</code></pre>
+<p>Let’s see how we can put REGEX to use!</p>
 <pre class="python"><code>import re
 
 example=&quot;Mini cupcakes? As in the mini version of regular cupcakes? Which is already a mini version of cake? Honestly, where does it end with you people?&quot;
 re.split(&quot;[?!.]\s&quot;,example)</code></pre>
 <pre><code>## [&#39;Mini cupcakes&#39;, &#39;As in the mini version of regular cupcakes&#39;, &#39;Which is already a mini version of cake&#39;, &#39;Honestly, where does it end with you people?&#39;]</code></pre>
 <p>In this example, we can use REGEX to not only locate the end of every sentence besides the last sentence in this dialogue, we can command REGEX to split each sentence up. Pretty neat huh?</p>
+<p>This is just a small example to illustrate the point that REGEX serves a variety of functions that can help in a multitude of ways.</p>
 </div>
 <div id="regular-expressions-conclusion" class="section level2">
 <h2>Regular Expressions: Conclusion</h2>
-<p>REGEX might save your life or it might not. Only you can find out.</p>
+<p>REGEX might save your life or it might not. Learn REGEX and tell me how it goes. If it saves your life, let me know. If it doesn’t, don’t bother contacting me.</p>
 <p>Go visit <a href="http://play.inginf.units.it/#/">The Machine Learning Lab</a> for some practice!</p>
 </div>
 </div>

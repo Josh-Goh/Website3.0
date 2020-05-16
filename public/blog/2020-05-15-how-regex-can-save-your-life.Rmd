@@ -40,15 +40,18 @@ Sys.setenv(RETICULATE_PYTHON = "/usr/bin/python")
 use_python("/usr/bin/python")
 ```
 
+Let's see how we can put REGEX to use!
 ```{python}
 import re
 
 example="Mini cupcakes? As in the mini version of regular cupcakes? Which is already a mini version of cake? Honestly, where does it end with you people?"
 re.split("[?!.]\s",example)
 ```
-In this example, we can use REGEX to not only locate the end of every sentence besides the last sentence in this dialogue, we can command REGEX to split each sentence up. Pretty neat huh?
+In this example, we can use REGEX to not only locate the end of every sentence besides the last sentence in this dialogue, we can command REGEX to split each sentence up. Pretty neat huh? 
+
+This is just a small example to illustrate the point that REGEX serves a variety of functions that can help in a multitude of ways. 
 
 ## Regular Expressions: Conclusion 
-REGEX might save your life or it might not. Only you can find out.
+REGEX might save your life or it might not. Learn REGEX and tell me how it goes. If it saves your life, let me know. If it doesn't, don't bother contacting me.
 
 Go visit [The Machine Learning Lab](http://play.inginf.units.it/#/) for some practice!

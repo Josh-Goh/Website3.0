@@ -286,3 +286,32 @@ remote: Resolving deltas:   0% (0/25)[Kremote: Resolving deltas:   4% (1/25)[
 To https://github.com/Josh-Goh/Website3.0.git
    b5a3a91..f75068f  master -> master
 ]0;/stor/home/jtg2458/Project 3/Website 3.0]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ git add .
+]0;/stor/home/jtg2458/Project 3/Website 3.0]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ git commit -m "any message, but you must have a messsage"[1P"[1P"[1P"[1P"[1P"[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C" [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P"
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"e"d"i"t"2"
+[master 2a3c0b8] edit2
+ Committer: Josh Goh <jtg2458@educcomp03.ccbb.utexas.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 4 files changed, 65 insertions(+), 10 deletions(-)
+]0;/stor/home/jtg2458/Project 3/Website 3.0]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ git push origin master
+Username for 'https://github.com': Josh-Goh
+Password for 'https://Josh-Goh@github.com': 
+Counting objects: 12, done.
+Delta compression using up to 32 threads.
+Compressing objects:   8% (1/12)   Compressing objects:  16% (2/12)   Compressing objects:  25% (3/12)   Compressing objects:  33% (4/12)   Compressing objects:  41% (5/12)   Compressing objects:  50% (6/12)   Compressing objects:  58% (7/12)   Compressing objects:  66% (8/12)   Compressing objects:  75% (9/12)   Compressing objects:  83% (10/12)   Compressing objects:  91% (11/12)   Compressing objects: 100% (12/12)   Compressing objects: 100% (12/12), done.
+Writing objects:   8% (1/12)   Writing objects:  16% (2/12)   Writing objects:  25% (3/12)   Writing objects:  33% (4/12)   Writing objects:  41% (5/12)   Writing objects:  50% (6/12)   Writing objects:  58% (7/12)   Writing objects:  66% (8/12)   Writing objects:  75% (9/12)   Writing objects:  83% (10/12)   Writing objects:  91% (11/12)   Writing objects: 100% (12/12)   Writing objects: 100% (12/12), 2.49 KiB | 424.00 KiB/s, done.
+Total 12 (delta 6), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/6)[Kremote: Resolving deltas:  16% (1/6)[Kremote: Resolving deltas:  33% (2/6)[Kremote: Resolving deltas:  50% (3/6)[Kremote: Resolving deltas:  66% (4/6)[Kremote: Resolving deltas:  83% (5/6)[Kremote: Resolving deltas: 100% (6/6)[Kremote: Resolving deltas: 100% (6/6), completed with 6 local objects.[K
+To https://github.com/Josh-Goh/Website3.0.git
+   f75068f..2a3c0b8  master -> master
+]0;/stor/home/jtg2458/Project 3/Website 3.0]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ git add .
