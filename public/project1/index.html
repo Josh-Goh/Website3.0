@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Josh Goh" />
+    <meta name="description" content="Describe your website">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
+    <title>Project 1: Exploratory Data Analysis</title>
+    <meta name="generator" content="Hugo 0.70.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+  </head>
+
+  <body>
+    <div id="wrap">
+
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="../"><i class="fa fa-home"></i></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="../blog/">BLOG</a></li>
+        
+        <li><a href="../projects/">PROJECTS</a></li>
+        
+        <li><a href="Resume.pdf">RESUME</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="../project1/">Project 1: Exploratory Data Analysis</a></strong>
+          </h3>
+        </div>
+        <div class="blog-title">
+          <h4>
+          January 1, 0001
+            &nbsp;&nbsp;
+            
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              
+
+
+<ol start="0" style="list-style-type: decimal">
+<li>Introduction:</li>
+</ol>
+<p>Though healthcare is primarily considers the biological underpinnings of disease, recent developments have shifted the field of healthcare towards a more holistic approach, considering all facets of an individuals life that may affect their health. One such factor is economic status, often represented as household income. Therefore, in this exploratory data analysis, two datasets from the health inequality project will be joined and analyzed. The first dataset focuses on life expectancy and household income, with variables that include Gender, Household Income Percentile, Year, Count, Mean Household Income, Race-Adjusted Life Expectancy, Unadjusted Life Expectancy, Standard Error of Race-Adjusted Life Expectancy, and Standard Error of Unadjusted Life Expectancy. The second dataset focuses on mortality rate and household income, with variables that include Gender, Household Income Percentile, Age at Death, Year of Death, Income Lag, Mortality Rate, Mean Household Income, Numerator of mortrate, and Denominator of mortrate (alive at beginning of year). We expect there to exist a positive relationship between life expectancy and household income and a negative relationship between household income and mortality rate. These findings may provide interesting insight into the inequality within healthcare.</p>
+<div id="library" class="section level1">
+<h1>library</h1>
+<pre class="r"><code>library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tibble)
+library(cluster)</code></pre>
+</div>
+<div id="preparing-datasets" class="section level1">
+<h1>preparing datasets</h1>
+<pre class="r"><code>NationalLifeExpectancy_Original &lt;- read.csv(&quot;health_ineq_online_table_2.csv&quot;)
+head(NationalLifeExpectancy_Original)</code></pre>
+<pre><code>##   gnd pctile year  count   hh_inc   le_agg le_raceadj sd_le_agg sd_le_raceadj
+## 1   F      1 2001 398740 499.1094 79.68207   79.89346 0.3928378     0.3852398
+## 2   F      1 2002 411159 541.3070 79.18359   79.41062 0.3539808     0.3468173
+## 3   F      1 2003 420298 529.1391 79.36441   79.57217 0.3647805     0.3590969
+## 4   F      1 2004 427728 499.2995 79.89841   80.09248 0.3520185     0.3479916
+## 5   F      1 2005 433665 474.1454 80.28360   80.46594 0.3346116     0.3309857
+## 6   F      1 2006 438605 446.6483 79.51386   79.70161 0.3397771     0.3366041</code></pre>
+<pre class="r"><code>NationalMortalityRates_Original &lt;- read.csv(&quot;health_ineq_online_table_15.csv&quot;)
+head(NationalMortalityRates_Original)</code></pre>
+<pre><code>##   gnd pctile age_at_d  yod lag    mortrate   hh_inc deaths count
+## 1   F      1       40 2001   2 0.004409376 364.8230     95 21545
+## 2   F      1       40 2002   2 0.005786011 383.6687    124 21431
+## 3   F      1       40 2003   2 0.005046456 374.7329    107 21203
+## 4   F      1       40 2004   2 0.004786979 370.5288    100 20890
+## 5   F      1       40 2005   2 0.004724649 356.1439     93 19684
+## 6   F      1       40 2006   2 0.005372380 347.1992    102 18986</code></pre>
+<pre class="r"><code>NationalLifeExpectancy &lt;- NationalLifeExpectancy_Original %&gt;% select(-year, -gnd, -sd_le_agg, -sd_le_raceadj, -count) %&gt;% group_by(pctile) %&gt;% summarize_all(mean) %&gt;% mutate(pctile = as.numeric(pctile)) %&gt;% arrange(pctile) %&gt;% rename(HouseholdIncomePercentile = pctile, HouseholdIncome = hh_inc, UnadjustedLifeExpectancy = le_agg, RaceAdjustedLifeExpectancy = le_raceadj)
+head(NationalLifeExpectancy)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   HouseholdIncomePerc… HouseholdIncome UnadjustedLifeExpec… RaceAdjustedLifeExp…
+##                  &lt;dbl&gt;           &lt;dbl&gt;                &lt;dbl&gt;                &lt;dbl&gt;
+## 1                    1            387.                 75.5                 75.9
+## 2                    2           1727.                 77.4                 77.6
+## 3                    3           3421.                 78.4                 78.6
+## 4                    4           5138.                 78.8                 79.0
+## 5                    5           6781.                 79.1                 79.2
+## 6                    6           8317.                 79.2                 79.3</code></pre>
+<pre class="r"><code>NationalMortalityRates &lt;- NationalMortalityRates_Original %&gt;% select(-yod, -gnd, -count, -age_at_d, -lag) %&gt;% group_by(pctile) %&gt;% summarize_all(mean) %&gt;% mutate(pctile = as.numeric(pctile)) %&gt;% arrange(pctile) %&gt;% rename(HouseholdIncomePercentile = pctile, MortalityRate = mortrate, HouseholdIncome = hh_inc, Deaths = deaths)
+head(NationalMortalityRates)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   HouseholdIncomePercentile MortalityRate HouseholdIncome Deaths
+##                       &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;  &lt;dbl&gt;
+## 1                         1        0.0151            412.   212.
+## 2                         2        0.0129           1827.   179.
+## 3                         3        0.0117           3568.   163.
+## 4                         4        0.0112           5298.   154.
+## 5                         5        0.0108           6938.   149.
+## 6                         6        0.0106           8470.   144.</code></pre>
+<ol style="list-style-type: decimal">
+<li>Tidying: Rearranging Wide/Long</li>
+</ol>
+<p>After preparation of the datasets, in which unnecessary variables were removed and averages were obtained for the redundancies in the variable we planned to merge the datasets with, we first untidied both datasets and then tidied them. To untidy the datasets we used the pivot_wider() function to assign each observation to a single column with our variables listed in the names of the column alongside our variable we plan to merge the datasets with, Household Income Percentile. Following the untidying process, we tidied our data by separating the variables in the name from our Household Income Percentile variable using pivot_longer() and then using pivot_wider() to reassign each of our variables to its own column.</p>
+</div>
+<div id="untidying-dataset-1" class="section level1">
+<h1>untidying dataset 1</h1>
+<pre class="r"><code>NationalLifeExpectancy_Untidy &lt;- NationalLifeExpectancy %&gt;% pivot_wider(names_from = &quot;HouseholdIncomePercentile&quot;, values_from = c(&quot;HouseholdIncome&quot;, &quot;UnadjustedLifeExpectancy&quot;, &quot;RaceAdjustedLifeExpectancy&quot;))
+head(NationalLifeExpectancy_Untidy)</code></pre>
+<pre><code>## # A tibble: 1 x 300
+##   HouseholdIncome… HouseholdIncome… HouseholdIncome… HouseholdIncome…
+##              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1             387.            1727.            3421.            5138.
+## # … with 296 more variables: HouseholdIncome_5 &lt;dbl&gt;, HouseholdIncome_6 &lt;dbl&gt;,
+## #   HouseholdIncome_7 &lt;dbl&gt;, HouseholdIncome_8 &lt;dbl&gt;, HouseholdIncome_9 &lt;dbl&gt;,
+## #   HouseholdIncome_10 &lt;dbl&gt;, HouseholdIncome_11 &lt;dbl&gt;,
+## #   HouseholdIncome_12 &lt;dbl&gt;, HouseholdIncome_13 &lt;dbl&gt;,
+## #   HouseholdIncome_14 &lt;dbl&gt;, HouseholdIncome_15 &lt;dbl&gt;,
+## #   HouseholdIncome_16 &lt;dbl&gt;, HouseholdIncome_17 &lt;dbl&gt;,
+## #   HouseholdIncome_18 &lt;dbl&gt;, HouseholdIncome_19 &lt;dbl&gt;,
+## #   HouseholdIncome_20 &lt;dbl&gt;, HouseholdIncome_21 &lt;dbl&gt;,
+## #   HouseholdIncome_22 &lt;dbl&gt;, HouseholdIncome_23 &lt;dbl&gt;,
+## #   HouseholdIncome_24 &lt;dbl&gt;, HouseholdIncome_25 &lt;dbl&gt;,
+## #   HouseholdIncome_26 &lt;dbl&gt;, HouseholdIncome_27 &lt;dbl&gt;,
+## #   HouseholdIncome_28 &lt;dbl&gt;, HouseholdIncome_29 &lt;dbl&gt;,
+## #   HouseholdIncome_30 &lt;dbl&gt;, HouseholdIncome_31 &lt;dbl&gt;,
+## #   HouseholdIncome_32 &lt;dbl&gt;, HouseholdIncome_33 &lt;dbl&gt;,
+## #   HouseholdIncome_34 &lt;dbl&gt;, HouseholdIncome_35 &lt;dbl&gt;,
+## #   HouseholdIncome_36 &lt;dbl&gt;, HouseholdIncome_37 &lt;dbl&gt;,
+## #   HouseholdIncome_38 &lt;dbl&gt;, HouseholdIncome_39 &lt;dbl&gt;,
+## #   HouseholdIncome_40 &lt;dbl&gt;, HouseholdIncome_41 &lt;dbl&gt;,
+## #   HouseholdIncome_42 &lt;dbl&gt;, HouseholdIncome_43 &lt;dbl&gt;,
+## #   HouseholdIncome_44 &lt;dbl&gt;, HouseholdIncome_45 &lt;dbl&gt;,
+## #   HouseholdIncome_46 &lt;dbl&gt;, HouseholdIncome_47 &lt;dbl&gt;,
+## #   HouseholdIncome_48 &lt;dbl&gt;, HouseholdIncome_49 &lt;dbl&gt;,
+## #   HouseholdIncome_50 &lt;dbl&gt;, HouseholdIncome_51 &lt;dbl&gt;,
+## #   HouseholdIncome_52 &lt;dbl&gt;, HouseholdIncome_53 &lt;dbl&gt;,
+## #   HouseholdIncome_54 &lt;dbl&gt;, HouseholdIncome_55 &lt;dbl&gt;,
+## #   HouseholdIncome_56 &lt;dbl&gt;, HouseholdIncome_57 &lt;dbl&gt;,
+## #   HouseholdIncome_58 &lt;dbl&gt;, HouseholdIncome_59 &lt;dbl&gt;,
+## #   HouseholdIncome_60 &lt;dbl&gt;, HouseholdIncome_61 &lt;dbl&gt;,
+## #   HouseholdIncome_62 &lt;dbl&gt;, HouseholdIncome_63 &lt;dbl&gt;,
+## #   HouseholdIncome_64 &lt;dbl&gt;, HouseholdIncome_65 &lt;dbl&gt;,
+## #   HouseholdIncome_66 &lt;dbl&gt;, HouseholdIncome_67 &lt;dbl&gt;,
+## #   HouseholdIncome_68 &lt;dbl&gt;, HouseholdIncome_69 &lt;dbl&gt;,
+## #   HouseholdIncome_70 &lt;dbl&gt;, HouseholdIncome_71 &lt;dbl&gt;,
+## #   HouseholdIncome_72 &lt;dbl&gt;, HouseholdIncome_73 &lt;dbl&gt;,
+## #   HouseholdIncome_74 &lt;dbl&gt;, HouseholdIncome_75 &lt;dbl&gt;,
+## #   HouseholdIncome_76 &lt;dbl&gt;, HouseholdIncome_77 &lt;dbl&gt;,
+## #   HouseholdIncome_78 &lt;dbl&gt;, HouseholdIncome_79 &lt;dbl&gt;,
+## #   HouseholdIncome_80 &lt;dbl&gt;, HouseholdIncome_81 &lt;dbl&gt;,
+## #   HouseholdIncome_82 &lt;dbl&gt;, HouseholdIncome_83 &lt;dbl&gt;,
+## #   HouseholdIncome_84 &lt;dbl&gt;, HouseholdIncome_85 &lt;dbl&gt;,
+## #   HouseholdIncome_86 &lt;dbl&gt;, HouseholdIncome_87 &lt;dbl&gt;,
+## #   HouseholdIncome_88 &lt;dbl&gt;, HouseholdIncome_89 &lt;dbl&gt;,
+## #   HouseholdIncome_90 &lt;dbl&gt;, HouseholdIncome_91 &lt;dbl&gt;,
+## #   HouseholdIncome_92 &lt;dbl&gt;, HouseholdIncome_93 &lt;dbl&gt;,
+## #   HouseholdIncome_94 &lt;dbl&gt;, HouseholdIncome_95 &lt;dbl&gt;,
+## #   HouseholdIncome_96 &lt;dbl&gt;, HouseholdIncome_97 &lt;dbl&gt;,
+## #   HouseholdIncome_98 &lt;dbl&gt;, HouseholdIncome_99 &lt;dbl&gt;,
+## #   HouseholdIncome_100 &lt;dbl&gt;, UnadjustedLifeExpectancy_1 &lt;dbl&gt;,
+## #   UnadjustedLifeExpectancy_2 &lt;dbl&gt;, UnadjustedLifeExpectancy_3 &lt;dbl&gt;,
+## #   UnadjustedLifeExpectancy_4 &lt;dbl&gt;, …</code></pre>
+</div>
+<div id="untidying-dataset-2" class="section level1">
+<h1>untidying dataset 2</h1>
+<pre class="r"><code>NationalMortalityRates_Untidy &lt;- NationalMortalityRates %&gt;% pivot_wider(names_from = &quot;HouseholdIncomePercentile&quot;, values_from = c(&quot;MortalityRate&quot;, &quot;HouseholdIncome&quot;, &quot;Deaths&quot;))
+head(NationalMortalityRates_Untidy)</code></pre>
+<pre><code>## # A tibble: 1 x 300
+##   MortalityRate_1 MortalityRate_2 MortalityRate_3 MortalityRate_4
+##             &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;
+## 1          0.0151          0.0129          0.0117          0.0112
+## # … with 296 more variables: MortalityRate_5 &lt;dbl&gt;, MortalityRate_6 &lt;dbl&gt;,
+## #   MortalityRate_7 &lt;dbl&gt;, MortalityRate_8 &lt;dbl&gt;, MortalityRate_9 &lt;dbl&gt;,
+## #   MortalityRate_10 &lt;dbl&gt;, MortalityRate_11 &lt;dbl&gt;, MortalityRate_12 &lt;dbl&gt;,
+## #   MortalityRate_13 &lt;dbl&gt;, MortalityRate_14 &lt;dbl&gt;, MortalityRate_15 &lt;dbl&gt;,
+## #   MortalityRate_16 &lt;dbl&gt;, MortalityRate_17 &lt;dbl&gt;, MortalityRate_18 &lt;dbl&gt;,
+## #   MortalityRate_19 &lt;dbl&gt;, MortalityRate_20 &lt;dbl&gt;, MortalityRate_21 &lt;dbl&gt;,
+## #   MortalityRate_22 &lt;dbl&gt;, MortalityRate_23 &lt;dbl&gt;, MortalityRate_24 &lt;dbl&gt;,
+## #   MortalityRate_25 &lt;dbl&gt;, MortalityRate_26 &lt;dbl&gt;, MortalityRate_27 &lt;dbl&gt;,
+## #   MortalityRate_28 &lt;dbl&gt;, MortalityRate_29 &lt;dbl&gt;, MortalityRate_30 &lt;dbl&gt;,
+## #   MortalityRate_31 &lt;dbl&gt;, MortalityRate_32 &lt;dbl&gt;, MortalityRate_33 &lt;dbl&gt;,
+## #   MortalityRate_34 &lt;dbl&gt;, MortalityRate_35 &lt;dbl&gt;, MortalityRate_36 &lt;dbl&gt;,
+## #   MortalityRate_37 &lt;dbl&gt;, MortalityRate_38 &lt;dbl&gt;, MortalityRate_39 &lt;dbl&gt;,
+## #   MortalityRate_40 &lt;dbl&gt;, MortalityRate_41 &lt;dbl&gt;, MortalityRate_42 &lt;dbl&gt;,
+## #   MortalityRate_43 &lt;dbl&gt;, MortalityRate_44 &lt;dbl&gt;, MortalityRate_45 &lt;dbl&gt;,
+## #   MortalityRate_46 &lt;dbl&gt;, MortalityRate_47 &lt;dbl&gt;, MortalityRate_48 &lt;dbl&gt;,
+## #   MortalityRate_49 &lt;dbl&gt;, MortalityRate_50 &lt;dbl&gt;, MortalityRate_51 &lt;dbl&gt;,
+## #   MortalityRate_52 &lt;dbl&gt;, MortalityRate_53 &lt;dbl&gt;, MortalityRate_54 &lt;dbl&gt;,
+## #   MortalityRate_55 &lt;dbl&gt;, MortalityRate_56 &lt;dbl&gt;, MortalityRate_57 &lt;dbl&gt;,
+## #   MortalityRate_58 &lt;dbl&gt;, MortalityRate_59 &lt;dbl&gt;, MortalityRate_60 &lt;dbl&gt;,
+## #   MortalityRate_61 &lt;dbl&gt;, MortalityRate_62 &lt;dbl&gt;, MortalityRate_63 &lt;dbl&gt;,
+## #   MortalityRate_64 &lt;dbl&gt;, MortalityRate_65 &lt;dbl&gt;, MortalityRate_66 &lt;dbl&gt;,
+## #   MortalityRate_67 &lt;dbl&gt;, MortalityRate_68 &lt;dbl&gt;, MortalityRate_69 &lt;dbl&gt;,
+## #   MortalityRate_70 &lt;dbl&gt;, MortalityRate_71 &lt;dbl&gt;, MortalityRate_72 &lt;dbl&gt;,
+## #   MortalityRate_73 &lt;dbl&gt;, MortalityRate_74 &lt;dbl&gt;, MortalityRate_75 &lt;dbl&gt;,
+## #   MortalityRate_76 &lt;dbl&gt;, MortalityRate_77 &lt;dbl&gt;, MortalityRate_78 &lt;dbl&gt;,
+## #   MortalityRate_79 &lt;dbl&gt;, MortalityRate_80 &lt;dbl&gt;, MortalityRate_81 &lt;dbl&gt;,
+## #   MortalityRate_82 &lt;dbl&gt;, MortalityRate_83 &lt;dbl&gt;, MortalityRate_84 &lt;dbl&gt;,
+## #   MortalityRate_85 &lt;dbl&gt;, MortalityRate_86 &lt;dbl&gt;, MortalityRate_87 &lt;dbl&gt;,
+## #   MortalityRate_88 &lt;dbl&gt;, MortalityRate_89 &lt;dbl&gt;, MortalityRate_90 &lt;dbl&gt;,
+## #   MortalityRate_91 &lt;dbl&gt;, MortalityRate_92 &lt;dbl&gt;, MortalityRate_93 &lt;dbl&gt;,
+## #   MortalityRate_94 &lt;dbl&gt;, MortalityRate_95 &lt;dbl&gt;, MortalityRate_96 &lt;dbl&gt;,
+## #   MortalityRate_97 &lt;dbl&gt;, MortalityRate_98 &lt;dbl&gt;, MortalityRate_99 &lt;dbl&gt;,
+## #   MortalityRate_100 &lt;dbl&gt;, HouseholdIncome_1 &lt;dbl&gt;, HouseholdIncome_2 &lt;dbl&gt;,
+## #   HouseholdIncome_3 &lt;dbl&gt;, HouseholdIncome_4 &lt;dbl&gt;, …</code></pre>
+</div>
+<div id="tidying-dataset-1" class="section level1">
+<h1>tidying dataset 1</h1>
+<pre class="r"><code>NationalLifeExpectancy_Tidy &lt;- NationalLifeExpectancy_Untidy %&gt;% pivot_longer(contains(&quot;_&quot;)) %&gt;% separate(name,into=c(&quot;Type&quot;,&quot;HouseholdIncomePercentile&quot;)) %&gt;% pivot_wider(names_from=&quot;Type&quot;,values_from=&quot;value&quot;)
+head(NationalLifeExpectancy_Tidy)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   HouseholdIncomePerc… HouseholdIncome UnadjustedLifeExpec… RaceAdjustedLifeExp…
+##   &lt;chr&gt;                          &lt;dbl&gt;                &lt;dbl&gt;                &lt;dbl&gt;
+## 1 1                               387.                 75.5                 75.9
+## 2 2                              1727.                 77.4                 77.6
+## 3 3                              3421.                 78.4                 78.6
+## 4 4                              5138.                 78.8                 79.0
+## 5 5                              6781.                 79.1                 79.2
+## 6 6                              8317.                 79.2                 79.3</code></pre>
+</div>
+<div id="tidying-dataset-2" class="section level1">
+<h1>tidying dataset 2</h1>
+<pre class="r"><code>NationalMortalityRates_Tidy &lt;- NationalMortalityRates_Untidy %&gt;% pivot_longer(contains(&quot;_&quot;)) %&gt;% separate(name,into=c(&quot;Type&quot;,&quot;HouseholdIncomePercentile&quot;)) %&gt;% pivot_wider(names_from=&quot;Type&quot;,values_from=&quot;value&quot;)
+head(NationalMortalityRates_Tidy)</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   HouseholdIncomePercentile MortalityRate HouseholdIncome Deaths
+##   &lt;chr&gt;                             &lt;dbl&gt;           &lt;dbl&gt;  &lt;dbl&gt;
+## 1 1                                0.0151            412.   212.
+## 2 2                                0.0129           1827.   179.
+## 3 3                                0.0117           3568.   163.
+## 4 4                                0.0112           5298.   154.
+## 5 5                                0.0108           6938.   149.
+## 6 6                                0.0106           8470.   144.</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Joining/Merging</li>
+</ol>
+<p>Once the two datasets were pepared and tidy, the datasets were merged using a full join so that all of the variables from both datasets would be included to create a comprehensive dataset encapsulating all of the information. Idential variables present in both datasets were renamed with a tag associating them with their original dataset; therefore, information from both can be distinguished and retained. No cases were dropped.</p>
+<pre class="r"><code>National_MergedData &lt;- full_join(NationalLifeExpectancy_Tidy, NationalMortalityRates_Tidy, by=&quot;HouseholdIncomePercentile&quot;) %&gt;% rename(NLEHouseholdIncome = HouseholdIncome.x, NMRHouseholdIncome = HouseholdIncome.y)
+head(National_MergedData)</code></pre>
+<pre><code>## # A tibble: 6 x 7
+##   HouseholdIncome… NLEHouseholdInc… UnadjustedLifeE… RaceAdjustedLif…
+##   &lt;chr&gt;                       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 1                            387.             75.5             75.9
+## 2 2                           1727.             77.4             77.6
+## 3 3                           3421.             78.4             78.6
+## 4 4                           5138.             78.8             79.0
+## 5 5                           6781.             79.1             79.2
+## 6 6                           8317.             79.2             79.3
+## # … with 3 more variables: MortalityRate &lt;dbl&gt;, NMRHouseholdIncome &lt;dbl&gt;,
+## #   Deaths &lt;dbl&gt;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Wrangling</li>
+</ol>
+<p>Now that the two separate datasets were merged into one dataset named “National_MergedData” we can create summary statistics of the data using the dplyr functions. To meet the requirements of the assignment, the first block of code uses each dplyr function individually in unique ways to explore the dataset. These unique explorations are explained within the comments. Following the exploration, the specific summmary statistics of mean, standard deviation, variace, minimum, maximum, number of unique values, last value, first value, IQR, median and correlation were calculated for all numeric variables without grouping and with grouping by the rounded values of race adjusted life expectancy that were converted from numeric values into characters.</p>
+<p>The results of the data analysis/wrangling show that the average values for each variable are: 9.764774e+04 US dollars for NLE household income, 83.627406 years for unadjusted life expectancy, 83.672665 years for race adjusted life expectancy, 6.074249e-03 for mortality rate, 9.799557e+04 for NMR household income, and 80.23393 deaths for number of deaths per year. All variables have relatively normally skewed even distributions with expected standard deviations, except for household incomes for both NMR and NLE datasets. The NMR and NLE datasets have a standard deviation of 1.959262e+05 US dollars, a minimum of 3.870868e+02 US dollars, and a maximum of 1.887876e+06 US dollars. Out of all variables in the data set, this provides the most unique distribution that has incredibly large outliers on the high end of the range. This will serve as an interesting point of analysis to see how income affects health outcomes.</p>
+</div>
+<div id="using-all-6-dplyr-functions" class="section level1">
+<h1>using all 6 dplyr functions</h1>
+<pre class="r"><code>#using filter() function to obtain quantile information
+National_MergedData_filterfunction &lt;- National_MergedData %&gt;% filter(HouseholdIncomePercentile == c(&quot;25&quot;, &quot;50&quot;, &quot;75&quot;))
+head(National_MergedData_filterfunction)</code></pre>
+<pre><code>## # A tibble: 3 x 7
+##   HouseholdIncome… NLEHouseholdInc… UnadjustedLifeE… RaceAdjustedLif…
+##   &lt;chr&gt;                       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 25                         30411.             81.3             81.4
+## 2 50                         60528.             84.0             84.1
+## 3 75                        103689.             85.8             85.8
+## # … with 3 more variables: MortalityRate &lt;dbl&gt;, NMRHouseholdIncome &lt;dbl&gt;,
+## #   Deaths &lt;dbl&gt;</code></pre>
+<pre class="r"><code>#using select() function to obtain averages over all variables that would be meaningful to average
+National_MergedData_selectfunction &lt;- National_MergedData %&gt;% select(&quot;LifeExpectancy&quot; = RaceAdjustedLifeExpectancy, MortalityRate, &quot;HouseholdIncome&quot; = NMRHouseholdIncome) %&gt;% summarize_all(mean)
+
+#using arrange() function to sort data based on life expectancy to see if life expectancy exactly follows increase in household income percentile
+National_MergedData_arrangeFunction &lt;- National_MergedData %&gt;% arrange(RaceAdjustedLifeExpectancy) %&gt;% select(HouseholdIncomePercentile, RaceAdjustedLifeExpectancy)
+head(National_MergedData_arrangeFunction)</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##   HouseholdIncomePercentile RaceAdjustedLifeExpectancy
+##   &lt;chr&gt;                                          &lt;dbl&gt;
+## 1 1                                               75.9
+## 2 2                                               77.6
+## 3 3                                               78.6
+## 4 4                                               79.0
+## 5 8                                               79.1
+## 6 7                                               79.2</code></pre>
+<pre class="r"><code>#using group_by(), mutate(), and summarize() function to determine the household incomes based on each value of life expectancy rounded to the nearest year 
+National_MergedData_groupby_mutate_summarizefuncitons &lt;- National_MergedData %&gt;% mutate(LifeExpectancy = round(RaceAdjustedLifeExpectancy), HouseholdIncome = (NLEHouseholdIncome + NMRHouseholdIncome)/2) %&gt;% select(LifeExpectancy, HouseholdIncome) %&gt;% group_by(LifeExpectancy) %&gt;% summarize(mean(HouseholdIncome))
+head(National_MergedData_groupby_mutate_summarizefuncitons)</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##   LifeExpectancy `mean(HouseholdIncome)`
+##            &lt;dbl&gt;                   &lt;dbl&gt;
+## 1             76                    400.
+## 2             78                   1777.
+## 3             79                   9719.
+## 4             80                  19415.
+## 5             81                  27703.
+## 6             82                  36321.</code></pre>
+</div>
+<div id="summary-statistics-without-grouping" class="section level1">
+<h1>summary statistics without grouping</h1>
+<pre class="r"><code>#Summary Statistics without Grouping
+National_MergedDataSummaryStats &lt;- National_MergedData %&gt;% select_if(is.numeric) %&gt;% summarize_all(funs(mean, sd, var, min, max, n_distinct, first, last, IQR, median)) 
+#reshaping
+National_MergedDataSummaryStatsReshaped &lt;- National_MergedDataSummaryStats %&gt;% pivot_longer(contains(&quot;_&quot;)) %&gt;% separate(name,into=c(&quot;Variable&quot;,&quot;SummaryStatistic&quot;)) %&gt;% pivot_wider(names_from=&quot;Variable&quot;, values_from=&quot;value&quot;)
+head(National_MergedDataSummaryStatsReshaped)</code></pre>
+<pre><code>## # A tibble: 6 x 7
+##   SummaryStatistic NLEHouseholdInc… UnadjustedLifeE… RaceAdjustedLif…
+##   &lt;chr&gt;                       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 mean                       97648.            83.6             83.7 
+## 2 sd                        195926.             2.87             2.84
+## 3 var                  38387073925.             8.26             8.07
+## 4 min                          387.            75.5             75.9 
+## 5 max                      1887876.            88.7             88.8 
+## 6 n                            100            100              100   
+## # … with 3 more variables: MortalityRate &lt;dbl&gt;, NMRHouseholdIncome &lt;dbl&gt;,
+## #   Deaths &lt;dbl&gt;</code></pre>
+</div>
+<div id="correlation-without-grouping" class="section level1">
+<h1>correlation without grouping</h1>
+<pre class="r"><code>#correlation
+National_MergedDataCor &lt;- National_MergedData %&gt;% select_if(is.numeric) %&gt;% cor()
+National_MergedDataCor</code></pre>
+<pre><code>##                            NLEHouseholdIncome UnadjustedLifeExpectancy
+## NLEHouseholdIncome                  1.0000000                0.4652375
+## UnadjustedLifeExpectancy            0.4652375                1.0000000
+## RaceAdjustedLifeExpectancy          0.4679424                0.9998979
+## MortalityRate                      -0.4108415               -0.9899329
+## NMRHouseholdIncome                  0.9997420                0.4478042
+## Deaths                             -0.4006604               -0.9841404
+##                            RaceAdjustedLifeExpectancy MortalityRate
+## NLEHouseholdIncome                          0.4679424    -0.4108415
+## UnadjustedLifeExpectancy                    0.9998979    -0.9899329
+## RaceAdjustedLifeExpectancy                  1.0000000    -0.9885273
+## MortalityRate                              -0.9885273     1.0000000
+## NMRHouseholdIncome                          0.4505037    -0.3939648
+## Deaths                                     -0.9823462     0.9992739
+##                            NMRHouseholdIncome     Deaths
+## NLEHouseholdIncome                  0.9997420 -0.4006604
+## UnadjustedLifeExpectancy            0.4478042 -0.9841404
+## RaceAdjustedLifeExpectancy          0.4505037 -0.9823462
+## MortalityRate                      -0.3939648  0.9992739
+## NMRHouseholdIncome                  1.0000000 -0.3840298
+## Deaths                             -0.3840298  1.0000000</code></pre>
+</div>
+<div id="summary-statistics-with-grouping" class="section level1">
+<h1>summary statistics with grouping</h1>
+<pre class="r"><code>#Summary Statistics with Grouping
+National_MergedDataSummaryStatsGrouping &lt;- National_MergedData %&gt;% select(-HouseholdIncomePercentile, -UnadjustedLifeExpectancy) %&gt;% mutate(LifeExpectancy = round(RaceAdjustedLifeExpectancy)) %&gt;% group_by(LifeExpectancy) %&gt;% summarize_all(funs(mean, sd, var, min, max, n_distinct, first, last, IQR, median))
+#Reshaping
+National_MergedDataSummaryStatsGroupingReshaped &lt;- National_MergedDataSummaryStatsGrouping %&gt;% pivot_longer(contains(&quot;_&quot;)) %&gt;% separate(name,into=c(&quot;Variable&quot;,&quot;SummaryStatistic&quot;)) %&gt;% pivot_wider(names_from=&quot;Variable&quot;, values_from=&quot;value&quot;)
+head(National_MergedDataSummaryStatsGroupingReshaped)</code></pre>
+<pre><code>## # A tibble: 6 x 7
+##   LifeExpectancy SummaryStatistic NLEHouseholdInc… RaceAdjustedLif…
+##            &lt;dbl&gt; &lt;chr&gt;                       &lt;dbl&gt;            &lt;dbl&gt;
+## 1             76 mean                         387.             75.9
+## 2             76 sd                            NA              NA  
+## 3             76 var                           NA              NA  
+## 4             76 min                          387.             75.9
+## 5             76 max                          387.             75.9
+## 6             76 n                              1               1  
+## # … with 3 more variables: MortalityRate &lt;dbl&gt;, NMRHouseholdIncome &lt;dbl&gt;,
+## #   Deaths &lt;dbl&gt;</code></pre>
+</div>
+<div id="correlation-with-grouping" class="section level1">
+<h1>correlation with grouping</h1>
+<pre class="r"><code>#Correlation
+National_MergedDataCorGrouping &lt;- National_MergedData %&gt;% select(-HouseholdIncomePercentile, -UnadjustedLifeExpectancy) %&gt;% mutate(LifeExpectancy = round(RaceAdjustedLifeExpectancy)) %&gt;% group_by(LifeExpectancy) %&gt;% select_if(is.numeric) %&gt;% cor()
+National_MergedDataCorGrouping</code></pre>
+<pre><code>##                            NLEHouseholdIncome RaceAdjustedLifeExpectancy
+## NLEHouseholdIncome                  1.0000000                  0.4679424
+## RaceAdjustedLifeExpectancy          0.4679424                  1.0000000
+## MortalityRate                      -0.4108415                 -0.9885273
+## NMRHouseholdIncome                  0.9997420                  0.4505037
+## Deaths                             -0.4006604                 -0.9823462
+## LifeExpectancy                      0.4745963                  0.9951999
+##                            MortalityRate NMRHouseholdIncome     Deaths
+## NLEHouseholdIncome            -0.4108415          0.9997420 -0.4006604
+## RaceAdjustedLifeExpectancy    -0.9885273          0.4505037 -0.9823462
+## MortalityRate                  1.0000000         -0.3939648  0.9992739
+## NMRHouseholdIncome            -0.3939648          1.0000000 -0.3840298
+## Deaths                         0.9992739         -0.3840298  1.0000000
+## LifeExpectancy                -0.9808763          0.4572643 -0.9740204
+##                            LifeExpectancy
+## NLEHouseholdIncome              0.4745963
+## RaceAdjustedLifeExpectancy      0.9951999
+## MortalityRate                  -0.9808763
+## NMRHouseholdIncome              0.4572643
+## Deaths                         -0.9740204
+## LifeExpectancy                  1.0000000</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Visualizing</li>
+</ol>
+<p>Given that the data has been summarized and analyzed for unique relationships/findings between the variables, visualization of the findings must follow to create an easily-understandable and informative graphic. The first visualization plot created will be a correlation heatmap in which each numeric variable will be plotted against each other numeric variable in a 2-dimensional map that indicates the strength and direction of the correlation. This allows for easy identification of the relationships between any and all numeric variables. Based on the summary statistics computed from wrangling and the correlation values from the heatmap, two subsequent visualizaiton plots were created to underscore the relationship between household income and life expectancy as well as the relationship between household income and mortality rate.</p>
+</div>
+<div id="correlation-heatmap" class="section level1">
+<h1>Correlation Heatmap</h1>
+<pre class="r"><code>#Convert Dataframe to Only Numerics
+National_MergedDataNumericOnly &lt;- National_MergedData %&gt;% mutate(HouseholdIncomePercentile = as.numeric(HouseholdIncomePercentile))
+
+#Tidy Correlations
+CorrelationHeatmap &lt;- cor(National_MergedDataNumericOnly) %&gt;% as.data.frame %&gt;% rownames_to_column %&gt;% pivot_longer(-1, names_to=&quot;name&quot; ,values_to=&quot;correlation&quot;)
+head(CorrelationHeatmap)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   rowname                   name                       correlation
+##   &lt;chr&gt;                     &lt;chr&gt;                            &lt;dbl&gt;
+## 1 HouseholdIncomePercentile HouseholdIncomePercentile        1    
+## 2 HouseholdIncomePercentile NLEHouseholdIncome               0.472
+## 3 HouseholdIncomePercentile UnadjustedLifeExpectancy         0.985
+## 4 HouseholdIncomePercentile RaceAdjustedLifeExpectancy       0.986
+## 5 HouseholdIncomePercentile MortalityRate                   -0.958
+## 6 HouseholdIncomePercentile NMRHouseholdIncome               0.454</code></pre>
+<pre class="r"><code>#Heatmap
+CorrelationHeatmap %&gt;% ggplot(aes(rowname, name, fill=correlation)) + 
+  geom_tile() + 
+  scale_fill_gradient2(low=&quot;orange&quot;,mid=&quot;white&quot;,high=&quot;blue&quot;) +
+  geom_text(aes(label=round(correlation,2)),color = &quot;white&quot;, size = 4)+ 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  coord_fixed() +
+  ggtitle(&quot;Corrleation Matrix of Numeric Variables&quot;) +
+  xlab(&quot;x-axis&quot;)+ylab(&quot;y-axis&quot;)</code></pre>
+<p><img src="../project1_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /> The correlation heatmap plots each numeric variable on the x-axis against all other numeric variables on the y-axis, including the household income percentile, which was converted from a character into a numeric. Correlation coefficient values are given at the intersection of variables and visually displayed through a color-scale gradient. Correlation coefficients nearly span the entire range from -0.99 to 1. Though a correlation coefficient of 1 is the most common correlation coefficient, most of these correlations include variables being correlated with themselves or variables being correlated with variables that are similar in meaning, such as mortality rate and deaths. Some of the strongest correlations, excluding correlation coefficients with a value of 1, are the correlations between household income percentile with life expectancy and mortality. The weakest correlations are the correlations between household income with life expectancy and mortality. This difference between household income and household income percentile indicates that though the variabels household income and household income percentile are very closely related, the primary predictor of health outcomes is the relative percentile rather than the absolute value of income.</p>
+</div>
+<div id="ggplot-1" class="section level1">
+<h1>GGPLOT 1</h1>
+<pre class="r"><code>#ggplot dataframe for plot 1
+National_MergedDataGGplot1 &lt;- National_MergedData %&gt;% mutate(LifeExpectancy = round(RaceAdjustedLifeExpectancy), MortalityRate = round(MortalityRate, digits = 3), HouseholdIncome = NMRHouseholdIncome) %&gt;% mutate(LifeExpectancy = as.character(LifeExpectancy), MortalityRate = as.character(MortalityRate), HouseholdIncomePercentile = as.numeric(HouseholdIncomePercentile))
+
+head(National_MergedDataGGplot1)</code></pre>
+<pre><code>## # A tibble: 6 x 9
+##   HouseholdIncome… NLEHouseholdInc… UnadjustedLifeE… RaceAdjustedLif…
+##              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1                1             387.             75.5             75.9
+## 2                2            1727.             77.4             77.6
+## 3                3            3421.             78.4             78.6
+## 4                4            5138.             78.8             79.0
+## 5                5            6781.             79.1             79.2
+## 6                6            8317.             79.2             79.3
+## # … with 5 more variables: MortalityRate &lt;chr&gt;, NMRHouseholdIncome &lt;dbl&gt;,
+## #   Deaths &lt;dbl&gt;, LifeExpectancy &lt;chr&gt;, HouseholdIncome &lt;dbl&gt;</code></pre>
+<pre class="r"><code>#ggplot 1
+ggplot(National_MergedDataGGplot1, aes(x = LifeExpectancy, y = HouseholdIncome, fill = MortalityRate))+
+  geom_bar(stat=&quot;summary&quot;,fun.y=&quot;mean&quot;) +
+  scale_y_continuous(breaks=seq(0, 2000000, 250000)) +
+  scale_fill_brewer(palette = &quot;Pastel2&quot;) + 
+  ggtitle(&quot;The Relationship between Household Income and Life Expectancy&quot;) + ylab(&quot;Household Income ($)&quot;) + xlab(&quot;Life Expectancy (years)&quot;)</code></pre>
+<p><img src="../project1_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /> The bar graph plots life expectancy rounded to the nearest year against household income with mortality rate mapped onto the color of each bar. The graph indicates that the range of life expectancy is 10 years between those with the lowest household income and those with the highest. Household income appears to increase linearly with life expectancy, excluding the highest life expectancy that has a significantly larger household income. These findings indicate that life expectancy is correlated with household income, but is not directly proportional. Primarily because of the outlier at the end of the life expectancy range, the data suggests that these two variables are related but reach a boundary at which household income can no longer affect life expectancy, indicating other variables are at play, such as physical human limitations. One interesting observation is dip observed in household income for those who have a life expectancy of 86 years.</p>
+</div>
+<div id="ggplot-2" class="section level1">
+<h1>GGPLOT 2</h1>
+<pre class="r"><code>#ggplot dataframe for plot 1
+National_MergedDataGGplot2 &lt;- National_MergedData %&gt;% mutate(HouseholdIncome = ((NMRHouseholdIncome + NLEHouseholdIncome)/2), HouseholdIncomePercentile = as.numeric(HouseholdIncomePercentile))
+
+head(National_MergedDataGGplot2)</code></pre>
+<pre><code>## # A tibble: 6 x 8
+##   HouseholdIncome… NLEHouseholdInc… UnadjustedLifeE… RaceAdjustedLif…
+##              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1                1             387.             75.5             75.9
+## 2                2            1727.             77.4             77.6
+## 3                3            3421.             78.4             78.6
+## 4                4            5138.             78.8             79.0
+## 5                5            6781.             79.1             79.2
+## 6                6            8317.             79.2             79.3
+## # … with 4 more variables: MortalityRate &lt;dbl&gt;, NMRHouseholdIncome &lt;dbl&gt;,
+## #   Deaths &lt;dbl&gt;, HouseholdIncome &lt;dbl&gt;</code></pre>
+<pre class="r"><code>#ggplot 2
+ggplot(National_MergedDataGGplot2, aes(HouseholdIncome, MortalityRate)) +
+  geom_line(color = &quot;black&quot;) + 
+  geom_point(size=3,aes(color=HouseholdIncomePercentile)) +
+  scale_color_gradient(low=&quot;red&quot;, high=&quot;green&quot;) + 
+  ggtitle(&quot;The Relationship between Household Income and Mortality Rate&quot;) + ylab(&quot;Mortality Rate&quot;) + xlab(&quot;Household Income ($)&quot;)</code></pre>
+<p><img src="../project1_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /> The graph plots household income against mortality rate to visually display the correlation between the two variables. The visual shows that there is a logarithmic relationship between household income and mortality, which indicates that mortality rate is greatly affected in any increase in household income betwen the range of 0k and 125k US dollars, but has little effect between the ranges of $125k and above. This is well exmplified by the color mapped household income percentile data, which shows that any change household income percentile outside of the 98-100 percentile range will make an impact on mortality rate.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Dimensionality Reduction</li>
+</ol>
+<p>Dimensionality reduction was performed on our dataset using the clustering algorithm Partitioning around Medoids (PAM). The dataframe for PAM was specifically created to combine redundant data into three distinct and meaningful variables: life expectancy, mortality rate, and household income. Once the dataframe was created, a new dataframe was created with just the variables of interest and was analyzd based on the silhouette width of different iterations of cluster numbers. The results of the silhouette width data is plotted on a ggpplot and the cluster number with the highest silhouette width is undeniably a cluster number of 2. The PAM function is run on the dataframe with number of clusters at 2. The results are then plotted arbitrarily with the variables: household income and life expectancy. The results and summary show that clustering occurs in two clusters with one cluster only having one observation. The depiction of these two clusters does not show a distinct separation or intuitive separation in clusters. With only one observation point being significantly different, clustering may not be a suitable analysis. The data is not inherently divided into different categories and the clustering analysis visually shows this even though the summary statistics seem to indicate a clear distinction. The summary statistics for cluster 1 are 83.6210 years for life expectancy, a mortality rate of 0.006110596, and a household income of 79130.88 US dollars, while the summary statistics for cluster 2 are 88.7877 years for life expectancy, a mortality rate of 0.002475935, and a household income of 1948208.92 US dollars.</p>
+<pre class="r"><code>#Dataframe for PAM
+National_MergedDataPAM &lt;- National_MergedData %&gt;% mutate(LifeExpectancy = RaceAdjustedLifeExpectancy, HouseholdIncome = ((NMRHouseholdIncome + NLEHouseholdIncome)/2))
+
+#Determining Number of Clusters in PAM
+pam_dat&lt;-National_MergedDataPAM %&gt;% select(LifeExpectancy, MortalityRate, HouseholdIncome)
+sil_width&lt;-vector()
+for(i in 2:10){
+  pam_fit &lt;- pam(pam_dat, k = i)
+  sil_width[i] &lt;- pam_fit$silinfo$avg.width
+}
+ggplot()+geom_line(aes(x=1:10,y=sil_width))+scale_x_continuous(name=&quot;k&quot;,breaks=1:10)</code></pre>
+<p><img src="../project1_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#PAM
+pam1 &lt;- pam_dat %&gt;% pam(k=2)
+pam1</code></pre>
+<pre><code>## Medoids:
+##       ID LifeExpectancy MortalityRate HouseholdIncome
+## [1,]  50        84.0632   0.005564397        59954.76
+## [2,] 100        88.7877   0.002475935      1948208.92
+## Clustering vector:
+##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [38] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [75] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2
+## Objective function:
+##    build     swap 
+## 48057.84 48057.84 
+## 
+## Available components:
+##  [1] &quot;medoids&quot;    &quot;id.med&quot;     &quot;clustering&quot; &quot;objective&quot;  &quot;isolation&quot; 
+##  [6] &quot;clusinfo&quot;   &quot;silinfo&quot;    &quot;diss&quot;       &quot;call&quot;       &quot;data&quot;</code></pre>
+<pre class="r"><code>#Plotting PAM
+pamclust&lt;-pam_dat %&gt;% mutate(cluster=as.factor(pam1$clustering))
+pamclust %&gt;% ggplot(aes(HouseholdIncome,LifeExpectancy,color=cluster)) + geom_point()</code></pre>
+<p><img src="../project1_files/figure-html/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#PAM Summary
+pamclust %&gt;% group_by(cluster) %&gt;% summarize_if(is.numeric,mean,na.rm=T)</code></pre>
+<pre><code>## # A tibble: 2 x 4
+##   cluster LifeExpectancy MortalityRate HouseholdIncome
+##   &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;
+## 1 1                 83.6       0.00611          79131.
+## 2 2                 88.8       0.00248        1948209.</code></pre>
+<pre class="r"><code>National_MergedDataPAM[pam1$id.med,]</code></pre>
+<pre><code>## # A tibble: 2 x 9
+##   HouseholdIncome… NLEHouseholdInc… UnadjustedLifeE… RaceAdjustedLif…
+##   &lt;chr&gt;                       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 50                         60528.             84.0             84.1
+## 2 100                      1887876.             88.7             88.8
+## # … with 5 more variables: MortalityRate &lt;dbl&gt;, NMRHouseholdIncome &lt;dbl&gt;,
+## #   Deaths &lt;dbl&gt;, LifeExpectancy &lt;dbl&gt;, HouseholdIncome &lt;dbl&gt;</code></pre>
+<p>…</p>
+</div>
+
+              <hr>
+              <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = '';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="../js/docs.min.js"></script>
+<script src="../js/main.js"></script>
+
+<script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+
+    
+  </body>
+</html>

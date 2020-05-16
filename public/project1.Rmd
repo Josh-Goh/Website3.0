@@ -1,0 +1,233 @@
+---
+title: 'Project 1: Exploratory Data Analysis'
+author: "Josh Goh SDS348"
+date: '03/08/2020'
+output:
+  pdf_document:
+    toc: no
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, fig.align = "center", warning = F, message = F,
+tidy=TRUE, tidy.opts=list(width.cutoff=60), R.options=list(max.print=100))
+```
+
+0. Introduction:
+
+Though healthcare is primarily considers the biological underpinnings of disease, recent developments have shifted the field of healthcare towards a more holistic approach, considering all facets of an individuals life that may affect their health. One such factor is economic status, often represented as household income. Therefore, in this exploratory data analysis, two datasets from the health inequality project will be joined and analyzed. The first dataset focuses on life expectancy and household income, with variables that include Gender, Household Income Percentile, Year, Count, Mean Household Income, Race-Adjusted Life Expectancy, Unadjusted Life Expectancy, Standard Error of Race-Adjusted Life Expectancy, and Standard Error of Unadjusted Life Expectancy. The second dataset focuses on mortality rate and household income, with variables that include Gender, Household Income Percentile, Age at Death, Year of Death, Income Lag, Mortality Rate, Mean Household Income, Numerator of mortrate, and Denominator of mortrate (alive at beginning of year). We expect there to exist a positive relationship between life expectancy and household income and a negative relationship between household income and mortality rate. These findings may provide interesting insight into the inequality within healthcare.
+
+#library
+```{R}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tibble)
+library(cluster)
+```
+
+
+#preparing datasets
+```{R}
+NationalLifeExpectancy_Original <- read.csv("health_ineq_online_table_2.csv")
+head(NationalLifeExpectancy_Original)
+
+NationalMortalityRates_Original <- read.csv("health_ineq_online_table_15.csv")
+head(NationalMortalityRates_Original)
+
+NationalLifeExpectancy <- NationalLifeExpectancy_Original %>% select(-year, -gnd, -sd_le_agg, -sd_le_raceadj, -count) %>% group_by(pctile) %>% summarize_all(mean) %>% mutate(pctile = as.numeric(pctile)) %>% arrange(pctile) %>% rename(HouseholdIncomePercentile = pctile, HouseholdIncome = hh_inc, UnadjustedLifeExpectancy = le_agg, RaceAdjustedLifeExpectancy = le_raceadj)
+head(NationalLifeExpectancy)
+
+NationalMortalityRates <- NationalMortalityRates_Original %>% select(-yod, -gnd, -count, -age_at_d, -lag) %>% group_by(pctile) %>% summarize_all(mean) %>% mutate(pctile = as.numeric(pctile)) %>% arrange(pctile) %>% rename(HouseholdIncomePercentile = pctile, MortalityRate = mortrate, HouseholdIncome = hh_inc, Deaths = deaths)
+head(NationalMortalityRates)
+```
+
+1. Tidying: Rearranging Wide/Long
+
+After preparation of the datasets, in which unnecessary variables were removed and averages were obtained for the redundancies in the variable we planned to merge the datasets with, we first untidied both datasets and then tidied them. To untidy the datasets we used the pivot_wider() function to assign each observation to a single column with our variables listed in the names of the column alongside our variable we plan to merge the datasets with, Household Income Percentile. Following the untidying process, we tidied our data by separating the variables in the name from our Household Income Percentile variable using pivot_longer() and then using pivot_wider() to reassign each of our variables to its own column.
+
+#untidying dataset 1
+```{R}
+NationalLifeExpectancy_Untidy <- NationalLifeExpectancy %>% pivot_wider(names_from = "HouseholdIncomePercentile", values_from = c("HouseholdIncome", "UnadjustedLifeExpectancy", "RaceAdjustedLifeExpectancy"))
+head(NationalLifeExpectancy_Untidy)
+```
+
+#untidying dataset 2
+```{R}
+NationalMortalityRates_Untidy <- NationalMortalityRates %>% pivot_wider(names_from = "HouseholdIncomePercentile", values_from = c("MortalityRate", "HouseholdIncome", "Deaths"))
+head(NationalMortalityRates_Untidy)
+```
+
+#tidying dataset 1
+```{R}
+NationalLifeExpectancy_Tidy <- NationalLifeExpectancy_Untidy %>% pivot_longer(contains("_")) %>% separate(name,into=c("Type","HouseholdIncomePercentile")) %>% pivot_wider(names_from="Type",values_from="value")
+head(NationalLifeExpectancy_Tidy)
+```
+
+#tidying dataset 2
+```{R}
+NationalMortalityRates_Tidy <- NationalMortalityRates_Untidy %>% pivot_longer(contains("_")) %>% separate(name,into=c("Type","HouseholdIncomePercentile")) %>% pivot_wider(names_from="Type",values_from="value")
+head(NationalMortalityRates_Tidy)
+```
+
+2. Joining/Merging
+
+Once the two datasets were pepared and tidy, the datasets were merged using a full join so that all of the variables from both datasets would be included to create a comprehensive dataset encapsulating all of the information. Idential variables present in both datasets were renamed with a tag associating them with their original dataset; therefore, information from both can be distinguished and retained. No cases were dropped.
+
+```{R}
+National_MergedData <- full_join(NationalLifeExpectancy_Tidy, NationalMortalityRates_Tidy, by="HouseholdIncomePercentile") %>% rename(NLEHouseholdIncome = HouseholdIncome.x, NMRHouseholdIncome = HouseholdIncome.y)
+head(National_MergedData)
+```
+
+3. Wrangling
+
+Now that the two separate datasets were merged into one dataset named "National_MergedData" we can create summary statistics of the data using the dplyr functions. To meet the requirements of the assignment, the first block of code uses each dplyr function individually in unique ways to explore the dataset. These unique explorations are explained within the comments. Following the exploration, the specific summmary statistics of mean, standard deviation, variace, minimum, maximum, number of unique values, last value, first value, IQR, median and correlation were calculated for all numeric variables without grouping and with grouping by the rounded values of race adjusted life expectancy that were converted from numeric values into characters. 
+
+The results of the data analysis/wrangling show that the average values for each variable are: 9.764774e+04 US dollars for NLE household income,	83.627406 years for unadjusted life expectancy,	83.672665	years for race adjusted life expectancy, 6.074249e-03 for mortality rate, 9.799557e+04 for NMR household income, and	80.23393 deaths for number of deaths per year. All variables have relatively normally skewed even distributions with expected standard deviations, except for household incomes for both NMR and NLE datasets. The NMR and NLE datasets have a standard deviation of 1.959262e+05 US dollars, a minimum of 3.870868e+02 US dollars, and a maximum of 1.887876e+06	US dollars. Out of all variables in the data set, this provides the most unique distribution that has incredibly large outliers on the high end of the range. This will serve as an interesting point of analysis to see how income affects health outcomes.
+
+#using all 6 dplyr functions
+```{R}
+#using filter() function to obtain quantile information
+National_MergedData_filterfunction <- National_MergedData %>% filter(HouseholdIncomePercentile == c("25", "50", "75"))
+head(National_MergedData_filterfunction)
+
+#using select() function to obtain averages over all variables that would be meaningful to average
+National_MergedData_selectfunction <- National_MergedData %>% select("LifeExpectancy" = RaceAdjustedLifeExpectancy, MortalityRate, "HouseholdIncome" = NMRHouseholdIncome) %>% summarize_all(mean)
+
+#using arrange() function to sort data based on life expectancy to see if life expectancy exactly follows increase in household income percentile
+National_MergedData_arrangeFunction <- National_MergedData %>% arrange(RaceAdjustedLifeExpectancy) %>% select(HouseholdIncomePercentile, RaceAdjustedLifeExpectancy)
+head(National_MergedData_arrangeFunction)
+
+#using group_by(), mutate(), and summarize() function to determine the household incomes based on each value of life expectancy rounded to the nearest year 
+National_MergedData_groupby_mutate_summarizefuncitons <- National_MergedData %>% mutate(LifeExpectancy = round(RaceAdjustedLifeExpectancy), HouseholdIncome = (NLEHouseholdIncome + NMRHouseholdIncome)/2) %>% select(LifeExpectancy, HouseholdIncome) %>% group_by(LifeExpectancy) %>% summarize(mean(HouseholdIncome))
+head(National_MergedData_groupby_mutate_summarizefuncitons)
+```
+#summary statistics without grouping
+```{R}
+#Summary Statistics without Grouping
+National_MergedDataSummaryStats <- National_MergedData %>% select_if(is.numeric) %>% summarize_all(funs(mean, sd, var, min, max, n_distinct, first, last, IQR, median)) 
+#reshaping
+National_MergedDataSummaryStatsReshaped <- National_MergedDataSummaryStats %>% pivot_longer(contains("_")) %>% separate(name,into=c("Variable","SummaryStatistic")) %>% pivot_wider(names_from="Variable", values_from="value")
+head(National_MergedDataSummaryStatsReshaped)
+```
+#correlation without grouping
+```{R}
+#correlation
+National_MergedDataCor <- National_MergedData %>% select_if(is.numeric) %>% cor()
+National_MergedDataCor
+```
+
+#summary statistics with grouping
+```{R}
+#Summary Statistics with Grouping
+National_MergedDataSummaryStatsGrouping <- National_MergedData %>% select(-HouseholdIncomePercentile, -UnadjustedLifeExpectancy) %>% mutate(LifeExpectancy = round(RaceAdjustedLifeExpectancy)) %>% group_by(LifeExpectancy) %>% summarize_all(funs(mean, sd, var, min, max, n_distinct, first, last, IQR, median))
+#Reshaping
+National_MergedDataSummaryStatsGroupingReshaped <- National_MergedDataSummaryStatsGrouping %>% pivot_longer(contains("_")) %>% separate(name,into=c("Variable","SummaryStatistic")) %>% pivot_wider(names_from="Variable", values_from="value")
+head(National_MergedDataSummaryStatsGroupingReshaped)
+```
+#correlation with grouping
+```{R}
+#Correlation
+National_MergedDataCorGrouping <- National_MergedData %>% select(-HouseholdIncomePercentile, -UnadjustedLifeExpectancy) %>% mutate(LifeExpectancy = round(RaceAdjustedLifeExpectancy)) %>% group_by(LifeExpectancy) %>% select_if(is.numeric) %>% cor()
+National_MergedDataCorGrouping
+```
+
+4. Visualizing
+
+Given that the data has been summarized and analyzed for unique relationships/findings between the variables, visualization of the findings must follow to create an easily-understandable and informative graphic. The first visualization plot created will be a correlation heatmap in which each numeric variable will be plotted against each other numeric variable in a 2-dimensional map that indicates the strength and direction of the correlation. This allows for easy identification of the relationships between any and all numeric variables. Based on the summary statistics computed from wrangling and the correlation values from the heatmap, two subsequent visualizaiton plots were created to underscore the relationship between household income and life expectancy as well as the relationship between household income and mortality rate.
+
+#Correlation Heatmap
+```{R}
+#Convert Dataframe to Only Numerics
+National_MergedDataNumericOnly <- National_MergedData %>% mutate(HouseholdIncomePercentile = as.numeric(HouseholdIncomePercentile))
+
+#Tidy Correlations
+CorrelationHeatmap <- cor(National_MergedDataNumericOnly) %>% as.data.frame %>% rownames_to_column %>% pivot_longer(-1, names_to="name" ,values_to="correlation")
+head(CorrelationHeatmap)
+
+#Heatmap
+CorrelationHeatmap %>% ggplot(aes(rowname, name, fill=correlation)) + 
+  geom_tile() + 
+  scale_fill_gradient2(low="orange",mid="white",high="blue") +
+  geom_text(aes(label=round(correlation,2)),color = "white", size = 4)+ 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  coord_fixed() +
+  ggtitle("Corrleation Matrix of Numeric Variables") +
+  xlab("x-axis")+ylab("y-axis")
+```
+The correlation heatmap plots each numeric variable on the x-axis against all other numeric variables on the y-axis, including the household income percentile, which was converted from a character into a numeric. Correlation coefficient values are given at the intersection of variables and visually displayed through a color-scale gradient. Correlation coefficients nearly span the entire range from -0.99 to 1. Though a correlation coefficient of 1 is the most common correlation coefficient, most of these correlations include variables being correlated with themselves or variables being correlated with variables that are similar in meaning, such as mortality rate and deaths. Some of the strongest correlations, excluding correlation coefficients with a value of 1, are the correlations between household income percentile with life expectancy and mortality. The weakest correlations are the correlations between household income with life expectancy and mortality. This difference between household income and household income percentile indicates that though the variabels household income and household income percentile are very closely related, the primary predictor of health outcomes is the relative percentile rather than the absolute value of income.  
+
+#GGPLOT 1
+```{R}
+#ggplot dataframe for plot 1
+National_MergedDataGGplot1 <- National_MergedData %>% mutate(LifeExpectancy = round(RaceAdjustedLifeExpectancy), MortalityRate = round(MortalityRate, digits = 3), HouseholdIncome = NMRHouseholdIncome) %>% mutate(LifeExpectancy = as.character(LifeExpectancy), MortalityRate = as.character(MortalityRate), HouseholdIncomePercentile = as.numeric(HouseholdIncomePercentile))
+
+head(National_MergedDataGGplot1)
+
+#ggplot 1
+ggplot(National_MergedDataGGplot1, aes(x = LifeExpectancy, y = HouseholdIncome, fill = MortalityRate))+
+  geom_bar(stat="summary",fun.y="mean") +
+  scale_y_continuous(breaks=seq(0, 2000000, 250000)) +
+  scale_fill_brewer(palette = "Pastel2") + 
+  ggtitle("The Relationship between Household Income and Life Expectancy") + ylab("Household Income ($)") + xlab("Life Expectancy (years)")
+```
+The bar graph plots life expectancy rounded to the nearest year against household income with mortality rate mapped onto the color of each bar. The graph indicates that the range of life expectancy is 10 years between those with the lowest household income and those with the highest. Household income appears to increase linearly with life expectancy, excluding the highest life expectancy that has a significantly larger household income. These findings indicate that life expectancy is correlated with household income, but is not directly proportional. Primarily because of the outlier at the end of the life expectancy range, the data suggests that these two variables are related but reach a boundary at which household income can no longer affect life expectancy, indicating other variables are at play, such as physical human limitations. One interesting observation is dip observed in household income for those who have a life expectancy of 86 years. 
+
+#GGPLOT 2
+```{R}
+#ggplot dataframe for plot 1
+National_MergedDataGGplot2 <- National_MergedData %>% mutate(HouseholdIncome = ((NMRHouseholdIncome + NLEHouseholdIncome)/2), HouseholdIncomePercentile = as.numeric(HouseholdIncomePercentile))
+
+head(National_MergedDataGGplot2)
+
+#ggplot 2
+ggplot(National_MergedDataGGplot2, aes(HouseholdIncome, MortalityRate)) +
+  geom_line(color = "black") + 
+  geom_point(size=3,aes(color=HouseholdIncomePercentile)) +
+  scale_color_gradient(low="red", high="green") + 
+  ggtitle("The Relationship between Household Income and Mortality Rate") + ylab("Mortality Rate") + xlab("Household Income ($)")
+```
+The graph plots household income against mortality rate to visually display the correlation between the two variables. The visual shows that there is a logarithmic relationship between household income and mortality, which indicates that mortality rate is greatly affected in any increase in household income betwen the range of 0k and 125k US dollars, but has little effect between the ranges of $125k and above. This is well exmplified by the color mapped household income percentile data, which shows that any change household income percentile outside of the 98-100 percentile range will make an impact on mortality rate. 
+
+5. Dimensionality Reduction
+
+Dimensionality reduction was performed on our dataset using the clustering algorithm Partitioning around Medoids (PAM). The dataframe for PAM was specifically created to combine redundant data into three distinct and meaningful variables: life expectancy, mortality rate, and household income. Once the dataframe was created, a new dataframe was created with just the variables of interest and was analyzd based on the silhouette width of different iterations of cluster numbers. The results of the silhouette width data is plotted on a ggpplot and the cluster number with the highest silhouette width is undeniably a cluster number of 2. The PAM function is run on the dataframe with number of clusters at 2. The results are then plotted arbitrarily with the variables: household income and life expectancy. The results and summary show that clustering occurs in two clusters with one cluster only having one observation. The depiction of these two clusters does not show a distinct separation or intuitive separation in clusters. With only one observation point being significantly different, clustering may not be a suitable analysis. The data is not inherently divided into different categories and the clustering analysis visually shows this even though the summary statistics seem to indicate a clear distinction. The summary statistics for cluster 1 are 83.6210 years for life expectancy, a mortality rate of 0.006110596, and a household income of 79130.88 US dollars, while the summary statistics for cluster 2 are 88.7877 years for life expectancy, a mortality rate of 0.002475935, and a household income of 1948208.92 US dollars. 
+
+```{R}
+#Dataframe for PAM
+National_MergedDataPAM <- National_MergedData %>% mutate(LifeExpectancy = RaceAdjustedLifeExpectancy, HouseholdIncome = ((NMRHouseholdIncome + NLEHouseholdIncome)/2))
+
+#Determining Number of Clusters in PAM
+pam_dat<-National_MergedDataPAM %>% select(LifeExpectancy, MortalityRate, HouseholdIncome)
+sil_width<-vector()
+for(i in 2:10){
+  pam_fit <- pam(pam_dat, k = i)
+  sil_width[i] <- pam_fit$silinfo$avg.width
+}
+ggplot()+geom_line(aes(x=1:10,y=sil_width))+scale_x_continuous(name="k",breaks=1:10)
+
+#PAM
+pam1 <- pam_dat %>% pam(k=2)
+pam1
+
+#Plotting PAM
+pamclust<-pam_dat %>% mutate(cluster=as.factor(pam1$clustering))
+pamclust %>% ggplot(aes(HouseholdIncome,LifeExpectancy,color=cluster)) + geom_point()
+
+#PAM Summary
+pamclust %>% group_by(cluster) %>% summarize_if(is.numeric,mean,na.rm=T)
+
+National_MergedDataPAM[pam1$id.med,]
+
+```
+
+...
+
+
+
+
+
