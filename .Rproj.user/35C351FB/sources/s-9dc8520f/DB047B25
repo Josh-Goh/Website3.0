@@ -2,18 +2,18 @@
     "collab_server" : "",
     "contents" : "",
     "created" : 1589596649886.000,
-    "dirty" : false,
+    "dirty" : true,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "3399163296",
+    "hash" : "0",
     "id" : "DB047B25",
     "lastKnownWriteTime" : 1589599555,
-    "last_content_update" : 1589599555951,
+    "last_content_update" : 1589600073730,
     "path" : "~/Project 3/Website 3.0/content/blog/2020-05-15-how-regex-can-save-your-life.Rmd",
     "project_path" : "content/blog/2020-05-15-how-regex-can-save-your-life.Rmd",
     "properties" : {
-        "cursorPosition" : "49,0",
-        "scrollLine" : "41"
+        "cursorPosition" : "54,159",
+        "scrollLine" : "47"
     },
     "relative_order" : 7,
     "source_on_save" : false,
