@@ -6,10 +6,20 @@
     <description>Recent content in development on Josh Goh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Wed, 02 Apr 2014 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/development/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How REGEX can save your life!</title>
+      <link>/blog/how-regex-can-save-your-life/</link>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/how-regex-can-save-your-life/</guid>
+      <description>How REGEX can save your life! You’re probably wondering what REGEX is. You’re probably also wondering why it can save your life. Let me explain:
+Python Background In the modern digital world it’s impossible to escape technology. It looms over society and has woven its way into the fabric of our culture, because lets face it: we’re all addicted and no one is getting over it any time soon. So, in the meantime, lets learn to adapt by embracing the new digital world!</description>
+    </item>
     
     <item>
       <title>(Hu)go Template Primer</title>

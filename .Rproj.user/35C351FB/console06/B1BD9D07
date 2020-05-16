@@ -39,3 +39,198 @@ bash: cd: too many arguments
 ]0;/stor/home/jtg2458/Project 3/Website 3.0]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ git init
 Reinitialized existing Git repository in /stor/home/jtg2458/Project 3/Website 3.0/.git/
 ]0;/stor/home/jtg2458/Project 3/Website 3.0]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ git add .
+]0;/stor/home/jtg2458/Project 3/Website 3.0]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ git commit -m "first website commit"
+[master (root-commit) b5a3a91] first website commit
+ Committer: Josh Goh <jtg2458@educcomp03.ccbb.utexas.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 160 files changed, 192591 insertions(+)
+ create mode 100644 .Rproj.user/35C351FB/console06/B1BD9D07
+ create mode 100644 .Rproj.user/35C351FB/console06/B1BD9D07.env
+ create mode 100644 .Rproj.user/35C351FB/console06/INDEX001
+ create mode 100644 .Rproj.user/35C351FB/sources/prop/11E889DD
+ create mode 100644 .Rproj.user/35C351FB/sources/prop/1E0E849
+ create mode 100644 .Rproj.user/35C351FB/sources/prop/65B0C09D
+ create mode 100644 .Rproj.user/35C351FB/sources/prop/95299529
+ create mode 100644 .Rproj.user/35C351FB/sources/prop/A5AF4540
+ create mode 100644 .Rproj.user/35C351FB/sources/prop/EAABDC2A
+ create mode 100644 .Rproj.user/35C351FB/sources/prop/INDEX
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/60C318B4
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/60C318B4-contents
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/78FE7A9C
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/78FE7A9C-contents
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/7CDF2C92
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/7CDF2C92-contents
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/7DCCEC0D
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/7DCCEC0D-contents
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/8CD72E11
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/8CD72E11-contents
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/A03326C4
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/A03326C4-contents
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/F5EB7476
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/F5EB7476-contents
+ create mode 100644 .Rproj.user/35C351FB/sources/s-9dc8520f/lock_file
+ create mode 100644 .Rproj.user/shared/notebooks/patch-chunk-names
+ create mode 100644 .Rproj.user/shared/notebooks/paths
+ create mode 100644 Website 3.0.Rproj
+ create mode 100644 config.toml
+ create mode 100644 content/blog/2015-07-23-r-rmarkdown.Rmd
+ create mode 100644 content/blog/2015-07-23-r-rmarkdown.html
+ create mode 100644 content/blog/creating-a-new-theme.md
+ create mode 100644 content/blog/goisforlovers.md
+ create mode 100644 content/blog/hugoisforlovers.md
+ create mode 100644 content/blog/migrate-from-jekyll.md
+ create mode 100644 content/health_ineq_online_table_15.csv
+ create mode 100644 content/health_ineq_online_table_2.csv
+ create mode 100644 content/heart.csv
+ create mode 100644 content/project1.Rmd
+ create mode 100644 content/project1.html
+ create mode 100644 content/project2.Rmd
+ create mode 100644 content/project2.html
+ create mode 100644 content/projects.md
+ create mode 100644 data/projects.yml
+ create mode 100644 index.Rmd
+ create mode 100644 public/404.html
+ create mode 100644 public/blog/2015-07-23-r-rmarkdown.Rmd
+ create mode 100644 public/blog/2015-07-23-r-rmarkdown/index.html
+ create mode 100644 public/blog/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
+ create mode 100644 public/blog/creating-a-new-theme/index.html
+ create mode 100644 public/blog/goisforlovers/index.html
+ create mode 100644 public/blog/hugoisforlovers/index.html
+ create mode 100644 public/blog/index.html
+ create mode 100644 public/blog/index.xml
+ create mode 100644 public/blog/migrate-from-jekyll/index.html
+ create mode 100644 public/categories/development/index.html
+ create mode 100644 public/categories/development/index.xml
+ create mode 100644 public/categories/golang/index.html
+ create mode 100644 public/categories/golang/index.xml
+ create mode 100644 public/categories/index.html
+ create mode 100644 public/categories/index.xml
+ create mode 100644 public/categories/projects/index.html
+ create mode 100644 public/categories/projects/index.xml
+ create mode 100644 public/categories/r/index.html
+ create mode 100644 public/categories/r/index.xml
+ create mode 100644 public/css/main.css
+ create mode 100644 public/health_ineq_online_table_15.csv
+ create mode 100644 public/health_ineq_online_table_2.csv
+ create mode 100644 public/heart.csv
+ create mode 100644 public/img/IMG_0909.JPG
+ create mode 100644 public/img/profile.png
+ create mode 100644 public/index.html
+ create mode 100644 public/index.xml
+ create mode 100644 public/js/docs.min.js
+ create mode 100644 public/js/ie10-viewport-bug-workaround.js
+ create mode 100644 public/js/main.js
+ create mode 100644 public/project1.Rmd
+ create mode 100644 public/project1/index.html
+ create mode 100644 public/project1_files/figure-html/unnamed-chunk-13-1.png
+ create mode 100644 public/project1_files/figure-html/unnamed-chunk-14-1.png
+ create mode 100644 public/project1_files/figure-html/unnamed-chunk-15-1.png
+ create mode 100644 public/project1_files/figure-html/unnamed-chunk-16-1.png
+ create mode 100644 public/project1_files/figure-html/unnamed-chunk-16-2.png
+ create mode 100644 public/project2.Rmd
+ create mode 100644 public/project2/index.html
+ create mode 100644 public/project2_files/figure-html/unnamed-chunk-3-1.png
+ create mode 100644 public/project2_files/figure-html/unnamed-chunk-3-2.png
+ create mode 100644 public/project2_files/figure-html/unnamed-chunk-4-1.png
+ create mode 100644 public/project2_files/figure-html/unnamed-chunk-5-1.png
+ create mode 100644 public/project2_files/figure-html/unnamed-chunk-5-2.png
+ create mode 100644 public/project2_files/figure-html/unnamed-chunk-7-1.png
+ create mode 100644 public/project2_files/figure-html/unnamed-chunk-7-2.png
+ create mode 100644 public/projects/index.html
+ create mode 100644 public/sitemap.xml
+ create mode 100644 public/tags/development/index.html
+ create mode 100644 public/tags/development/index.xml
+ create mode 100644 public/tags/go/index.html
+ create mode 100644 public/tags/go/index.xml
+ create mode 100644 public/tags/golang/index.html
+ create mode 100644 public/tags/golang/index.xml
+ create mode 100644 public/tags/hugo/index.html
+ create mode 100644 public/tags/hugo/index.xml
+ create mode 100644 public/tags/index.html
+ create mode 100644 public/tags/index.xml
+ create mode 100644 public/tags/plot/index.html
+ create mode 100644 public/tags/plot/index.xml
+ create mode 100644 public/tags/projects/index.html
+ create mode 100644 public/tags/projects/index.xml
+ create mode 100644 public/tags/r-markdown/index.html
+ create mode 100644 public/tags/r-markdown/index.xml
+ create mode 100644 public/tags/regression/index.html
+ create mode 100644 public/tags/regression/index.xml
+ create mode 100644 public/tags/templates/index.html
+ create mode 100644 public/tags/templates/index.xml
+ create mode 100644 public/tags/themes/index.html
+ create mode 100644 public/tags/themes/index.xml
+ create mode 100644 static/blog/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
+ create mode 100644 static/img/IMG_0909.JPG
+ create mode 100644 static/img/profile.png
+ create mode 100644 static/project1_files/figure-html/unnamed-chunk-13-1.png
+ create mode 100644 static/project1_files/figure-html/unnamed-chunk-14-1.png
+ create mode 100644 static/project1_files/figure-html/unnamed-chunk-15-1.png
+ create mode 100644 static/project1_files/figure-html/unnamed-chunk-16-1.png
+ create mode 100644 static/project1_files/figure-html/unnamed-chunk-16-2.png
+ create mode 100644 static/project2_files/figure-html/unnamed-chunk-3-1.png
+ create mode 100644 static/project2_files/figure-html/unnamed-chunk-3-2.png
+ create mode 100644 static/project2_files/figure-html/unnamed-chunk-4-1.png
+ create mode 100644 static/project2_files/figure-html/unnamed-chunk-5-1.png
+ create mode 100644 static/project2_files/figure-html/unnamed-chunk-5-2.png
+ create mode 100644 static/project2_files/figure-html/unnamed-chunk-7-1.png
+ create mode 100644 static/project2_files/figure-html/unnamed-chunk-7-2.png
+ create mode 100644 themes/hugo-sustain/LICENSE.md
+ create mode 100644 themes/hugo-sustain/README.md
+ create mode 100644 themes/hugo-sustain/archetypes/default.md
+ create mode 100644 themes/hugo-sustain/exampleSite/config.toml
+ create mode 100644 themes/hugo-sustain/exampleSite/content/blog/creating-a-new-theme.md
+ create mode 100644 themes/hugo-sustain/exampleSite/content/blog/goisforlovers.md
+ create mode 100644 themes/hugo-sustain/exampleSite/content/blog/hugoisforlovers.md
+ create mode 100644 themes/hugo-sustain/exampleSite/content/blog/migrate-from-jekyll.md
+ create mode 100644 themes/hugo-sustain/exampleSite/content/projects.md
+ create mode 100644 themes/hugo-sustain/exampleSite/data/projects.yml
+ create mode 100644 themes/hugo-sustain/exampleSite/static/img/profile.png
+ create mode 100644 themes/hugo-sustain/images/screenshot.png
+ create mode 100644 themes/hugo-sustain/images/tn.png
+ create mode 100644 themes/hugo-sustain/layouts/404.html
+ create mode 100644 themes/hugo-sustain/layouts/_default/list.html
+ create mode 100644 themes/hugo-sustain/layouts/_default/projects.html
+ create mode 100644 themes/hugo-sustain/layouts/_default/single.html
+ create mode 100644 themes/hugo-sustain/layouts/index.html
+ create mode 100644 themes/hugo-sustain/layouts/partials/disqus.html
+ create mode 100644 themes/hugo-sustain/layouts/partials/footer.html
+ create mode 100644 themes/hugo-sustain/layouts/partials/head.html
+ create mode 100644 themes/hugo-sustain/layouts/partials/header.html
+ create mode 100644 themes/hugo-sustain/layouts/partials/js.html
+ create mode 100644 themes/hugo-sustain/layouts/partials/social.html
+ create mode 100644 themes/hugo-sustain/static/css/main.css
+ create mode 100644 themes/hugo-sustain/static/js/docs.min.js
+ create mode 100644 themes/hugo-sustain/static/js/ie10-viewport-bug-workaround.js
+ create mode 100644 themes/hugo-sustain/static/js/main.js
+ create mode 100644 themes/hugo-sustain/theme.toml
+]0;/stor/home/jtg2458/Project 3/Website 3.0]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ git remote add origin https://github.com/USERNAME/WWEBSITE_REPOSITORY.git[1P.git[1P.git[1P.git[1P.git[1P.git[1P.git[1P.git[1P.git[1P.git[1P.git[1P.git[1P.git[1P.git[1P.git[1P.git[1P.git[C[C[1P.git[C[1P.gitW.git[Ce.git[C[Cb.gits.giti.gitt.gite.git3.git[C.git0.git[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/We[1Pbsite3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/Web[1Psite3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/Webs[1Pite3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/Websi[1Pte3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/Websit[1Pe3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/Website[1P3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/Website3[1P.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/Website3.[1P0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CJ/Website3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Co/Website3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cs/Website3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ch/Website3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-/Website3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CG/Website3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Co/Website3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ch/Website3.0.git[A]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+fatal: remote origin already exists.
+]0;/stor/home/jtg2458/Project 3/Website 3.0]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ git push origin master
+Username for 'https://github.com': JOsh   osh-Goh
+Password for 'https://Josh-Goh@github.com': 
+Counting objects: 189, done.
+Delta compression using up to 32 threads.
+Compressing objects:   0% (1/166)   Compressing objects:   1% (2/166)   Compressing objects:   2% (4/166)   Compressing objects:   3% (5/166)   Compressing objects:   4% (7/166)   Compressing objects:   5% (9/166)   Compressing objects:   6% (10/166)   Compressing objects:   7% (12/166)   Compressing objects:   8% (14/166)   Compressing objects:   9% (15/166)   Compressing objects:  10% (17/166)   Compressing objects:  11% (19/166)   Compressing objects:  12% (20/166)   Compressing objects:  13% (22/166)   Compressing objects:  14% (24/166)   Compressing objects:  15% (25/166)   Compressing objects:  16% (27/166)   Compressing objects:  17% (29/166)   Compressing objects:  18% (30/166)   Compressing objects:  19% (32/166)   Compressing objects:  20% (34/166)   Compressing objects:  21% (35/166)   Compressing objects:  22% (37/166)   Compressing objects:  23% (39/166)   Compressing objects:  24% (40/166)   Compressing objects:  25% (42/166)   Compressing objects:  26% (44/166)   Compressing objects:  27% (45/166)   Compressing objects:  28% (47/166)   Compressing objects:  29% (49/166)   Compressing objects:  30% (50/166)   Compressing objects:  31% (52/166)   Compressing objects:  32% (54/166)   Compressing objects:  33% (55/166)   Compressing objects:  34% (57/166)   Compressing objects:  35% (59/166)   Compressing objects:  36% (60/166)   Compressing objects:  37% (62/166)   Compressing objects:  38% (64/166)   Compressing objects:  39% (65/166)   Compressing objects:  40% (67/166)   Compressing objects:  41% (69/166)   Compressing objects:  42% (70/166)   Compressing objects:  43% (72/166)   Compressing objects:  44% (74/166)   Compressing objects:  45% (75/166)   Compressing objects:  46% (77/166)   Compressing objects:  47% (79/166)   Compressing objects:  48% (80/166)   Compressing objects:  49% (82/166)   Compressing objects:  50% (83/166)   Compressing objects:  51% (85/166)   Compressing objects:  52% (87/166)   Compressing objects:  53% (88/166)   Compressing objects:  54% (90/166)   Compressing objects:  55% (92/166)   Compressing objects:  56% (93/166)   Compressing objects:  57% (95/166)   Compressing objects:  58% (97/166)   Compressing objects:  59% (98/166)   Compressing objects:  60% (100/166)   Compressing objects:  61% (102/166)   Compressing objects:  62% (103/166)   Compressing objects:  63% (105/166)   Compressing objects:  64% (107/166)   Compressing objects:  65% (108/166)   Compressing objects:  66% (110/166)   Compressing objects:  67% (112/166)   Compressing objects:  68% (113/166)   Compressing objects:  69% (115/166)   Compressing objects:  70% (117/166)   Compressing objects:  71% (118/166)   Compressing objects:  72% (120/166)   Compressing objects:  73% (122/166)   Compressing objects:  74% (123/166)   Compressing objects:  75% (125/166)   Compressing objects:  76% (127/166)   Compressing objects:  77% (128/166)   Compressing objects:  78% (130/166)   Compressing objects:  79% (132/166)   Compressing objects:  80% (133/166)   Compressing objects:  81% (135/166)   Compressing objects:  82% (137/166)   Compressing objects:  83% (138/166)   Compressing objects:  84% (140/166)   Compressing objects:  85% (142/166)   Compressing objects:  86% (143/166)   Compressing objects:  87% (145/166)   Compressing objects:  88% (147/166)   Compressing objects:  89% (148/166)   Compressing objects:  90% (150/166)   Compressing objects:  91% (152/166)   Compressing objects:  92% (153/166)   Compressing objects:  93% (155/166)   Compressing objects:  94% (157/166)   Compressing objects:  95% (158/166)   Compressing objects:  96% (160/166)   Compressing objects:  97% (162/166)   Compressing objects:  98% (163/166)   Compressing objects:  99% (165/166)   Compressing objects: 100% (166/166)   Compressing objects: 100% (166/166), done.
+Writing objects:   0% (1/189)   Writing objects:   1% (2/189)   Writing objects:   2% (4/189)   Writing objects:   3% (6/189)   Writing objects:   4% (8/189)   Writing objects:   5% (10/189)   Writing objects:   6% (12/189)   Writing objects:   7% (14/189)   Writing objects:   8% (16/189)   Writing objects:   9% (18/189)   Writing objects:  10% (20/189)   Writing objects:  11% (21/189)   Writing objects:  12% (23/189)   Writing objects:  13% (25/189)   Writing objects:  14% (27/189)   Writing objects:  15% (29/189)   Writing objects:  16% (31/189)   Writing objects:  17% (33/189)   Writing objects:  18% (35/189)   Writing objects:  19% (36/189)   Writing objects:  20% (38/189)   Writing objects:  21% (40/189)   Writing objects:  22% (42/189)   Writing objects:  23% (44/189)   Writing objects:  24% (46/189)   Writing objects:  25% (48/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  26% (50/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  27% (52/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  28% (53/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  29% (55/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  30% (57/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  31% (59/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  32% (61/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  33% (64/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  34% (65/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  35% (67/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  36% (69/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  37% (70/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  38% (72/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  39% (75/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  40% (76/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  41% (78/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  42% (80/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  43% (82/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  45% (86/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  46% (87/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  47% (89/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  48% (91/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  49% (93/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  50% (96/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  51% (97/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  52% (99/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  53% (101/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  54% (103/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  55% (104/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  56% (106/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  57% (108/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  58% (110/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  59% (112/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  60% (114/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  61% (116/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  62% (118/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  63% (120/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  64% (121/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  65% (123/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  66% (125/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  67% (127/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  68% (129/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  69% (131/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  70% (133/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  71% (135/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  72% (137/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  73% (138/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  74% (140/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  75% (142/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  76% (144/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  77% (146/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  78% (148/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  79% (150/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  80% (152/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  81% (154/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  82% (155/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  83% (157/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  84% (159/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  85% (161/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  86% (163/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  87% (165/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  88% (167/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  89% (169/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  90% (171/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  91% (172/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  92% (174/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  93% (176/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  94% (178/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  95% (180/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  96% (182/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  97% (184/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  98% (186/189), 1.05 MiB | 1.92 MiB/s   Writing objects:  99% (188/189), 1.05 MiB | 1.92 MiB/s   Writing objects: 100% (189/189), 1.05 MiB | 1.92 MiB/s   Writing objects: 100% (189/189), 3.29 MiB | 4.56 MiB/s, done.
+Total 189 (delta 41), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/41)[Kremote: Resolving deltas:   7% (3/41)[Kremote: Resolving deltas:   9% (4/41)[Kremote: Resolving deltas:  12% (5/41)[Kremote: Resolving deltas:  14% (6/41)[Kremote: Resolving deltas:  17% (7/41)[Kremote: Resolving deltas:  19% (8/41)[Kremote: Resolving deltas:  53% (22/41)[Kremote: Resolving deltas:  63% (26/41)[Kremote: Resolving deltas:  85% (35/41)[Kremote: Resolving deltas:  90% (37/41)[Kremote: Resolving deltas: 100% (41/41)[Kremote: Resolving deltas: 100% (41/41), done.[K
+To https://github.com/Josh-Goh/Website3.0.git
+ * [new branch]      master -> master
+]0;/stor/home/jtg2458/Project 3/Website 3.0]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [K]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [K]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ which python
+/usr/bin/python
+]0;/stor/home/jtg2458/Project 3/Website 3.0]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ which pyton[K[Khon
+/usr/bin/python
+]0;/stor/home/jtg2458/Project 3/Website 3.0]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [K]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [K]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ [K]0;jtg2458@educcomp03: ~/Project 3/Website 3.0[01;32mjtg2458@educcomp03[00m:[01;34m~/Project 3/Website 3.0[00m$ git add .

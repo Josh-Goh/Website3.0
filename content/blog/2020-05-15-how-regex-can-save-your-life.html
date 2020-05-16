@@ -1,0 +1,52 @@
+---
+title: "How REGEX can save your life!"
+author: "Josh Goh"
+date: '2020-05-15'
+output: pdf_document
+description: ''
+slug: how-regex-can-save-your-life
+tags:
+- REGEX
+- Python
+- development
+categories: []
+---
+
+
+
+<div id="how-regex-can-save-your-life" class="section level1">
+<h1><strong>How REGEX can save your life!</strong></h1>
+<p>You’re probably wondering what REGEX is. You’re probably also wondering why it can save your life. Let me explain:</p>
+<div id="python-background" class="section level2">
+<h2>Python Background</h2>
+<p>In the modern digital world it’s impossible to escape technology. It looms over society and has woven its way into the fabric of our culture, because lets face it: we’re all addicted and no one is getting over it any time soon. So, in the meantime, lets learn to adapt by embracing the new digital world!</p>
+<p>Let’s start with Python, one of the worlds most widely used, highly developed programming language. It’s a simple language and a complex language all at the same time. It’s beautiful, terrifying, and addicting.</p>
+<p>To help you on your quest to master python, once variables, conditions, and for-loops have been thoroughly learned, I need to introduce you to REGEX – Regular Expressions!</p>
+</div>
+<div id="regular-expressions-why" class="section level2">
+<h2>Regular Expressions: Why?</h2>
+<p>So, I know that I said REGEX can save your life. However, that may have definitely been an exaggeration. But, that doesn’t mean REGEX will not make a significant impact on your coding career. RGEX is the coding equivalent of control + F on PC or command + F on Mac. I remember when I first learned about command + F:</p>
+<pre><code>                c h a n g e d   m y   l i f e 
+                </code></pre>
+<p>I honestly can’t fathom using my computer without command + F anymore. If you don’t know what command + F is, in short, it is a life-saving tool that helps you search for text throughout a document, webpage, or file. Regex does the same, except it is able to extract information from text with specific texts and/or patterns. Cleaning data, reformatting, web scraping, and text replacement become a breeze with REGEX.</p>
+</div>
+<div id="regular-expressions-how" class="section level2">
+<h2>Regular Expressions: How?</h2>
+<p>Using the functions: re.match(r“expression”,string), re.sub(pattern, repl, string), re.search(r“expression”,string), re.split(r“expression”,string), and re.findall(r“expression”,string) alongside importing re, you can begin extracting information with ease! Combined with various other functions and pandas, the possibilities of REGEX really becomes limitless.</p>
+<p>Here’s a helpful table to guide you through the different notations used in the “expression” portion of REGEX. <img src="/blog/2020-05-15-how-regex-can-save-your-life_files/figure.png" /></p>
+<pre class="r"><code>library(reticulate)
+Sys.setenv(RETICULATE_PYTHON = &quot;/usr/bin/python&quot;)
+use_python(&quot;/usr/bin/python&quot;)</code></pre>
+<pre class="python"><code>import re
+
+example=&quot;Mini cupcakes? As in the mini version of regular cupcakes? Which is already a mini version of cake? Honestly, where does it end with you people?&quot;
+re.split(&quot;[?!.]\s&quot;,example)</code></pre>
+<pre><code>## [&#39;Mini cupcakes&#39;, &#39;As in the mini version of regular cupcakes&#39;, &#39;Which is already a mini version of cake&#39;, &#39;Honestly, where does it end with you people?&#39;]</code></pre>
+<p>In this example, we can use REGEX to not only locate the end of every sentence besides the last sentence in this dialogue, we can command REGEX to split each sentence up. Pretty neat huh?</p>
+</div>
+<div id="regular-expressions-conclusion" class="section level2">
+<h2>Regular Expressions: Conclusion</h2>
+<p>REGEX might save your life or it might not. Only you can find out.</p>
+<p>Go visit <a href="http://play.inginf.units.it/#/">The Machine Learning Lab</a> for some practice!</p>
+</div>
+</div>
